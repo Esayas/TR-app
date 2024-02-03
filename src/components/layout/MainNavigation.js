@@ -16,6 +16,9 @@ function MainNavigation() {
             <Link to="/emptype">Employment Type</Link>
           </li>
           <li>
+            <Link to="/emptypetable">Employment Type List</Link>
+          </li>
+          <li>
             <Link to="/employee">Employee</Link>
           </li>
         </ul>

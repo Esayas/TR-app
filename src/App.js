@@ -6,6 +6,7 @@ import TripReq from "./pages/TripReq";
 import Login from "./pages/Login";
 import Layout from "./components/layout/layout";
 import AddEmploymentType from "./components/EmploymentType/AddEmploymentType";
+import EmploymentTypeTable from "./components/EmploymentType/EmploymentTypeTable";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         </Route> */}
         <Route path="/" element={<TripReq />} />
         <Route path="/emptype" element={<AddEmploymentType />} />
+        <Route path="/emptypetable" element={<EmploymentTypeTable />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Employee" element={<Employee />} />
       </Routes>
