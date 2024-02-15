@@ -13,7 +13,7 @@ function MainNavigation() {
             <Link to="/tripreq">Trip Request</Link>
           </li>
           <li>
-            <Link to="/emptype">Employment Type</Link>
+            <Link to="/add-emptype">Employment Type</Link>
           </li>
           <li>
             <Link to="/emptypetable">Employment Type List</Link>

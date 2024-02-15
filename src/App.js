@@ -7,24 +7,30 @@ import Login from "./pages/Login";
 import Layout from "./components/layout/layout";
 import AddEmploymentType from "./components/EmploymentType/AddEmploymentType";
 import EmploymentTypeTable from "./components/EmploymentType/EmploymentTypeTable";
+import Auth from "./components/Auth/Auth";
+import { useSelector } from "react-redux";
 
 function App() {
+  // const isLoggedIn = useSelector((state) => state.Auth.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  console.log(isLoggedIn);
   return (
-    <Layout>
-      <Routes>
-        {/* <Route path="/tr">
-          <Employee />
-        </Route>
-        <Route path="/employee">
-          <Employee />
-        </Route> */}
-        <Route path="/" element={<TripReq />} />
-        <Route path="/emptype" element={<AddEmploymentType />} />
-        <Route path="/emptypetable" element={<EmploymentTypeTable />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/Employee" element={<Employee />} />
-      </Routes>
-    </Layout>
+    <>
+      {!isLoggedIn && <Auth />}
+      {isLoggedIn && (
+        <Layout>
+          <Routes>
+            <Route path="/" element={<TripReq />} />
+            <Route path="/add-emptype" element={<AddEmploymentType />} />
+            <Route path="/emptype/edit/:id" element={<AddEmploymentType />} />
+            <Route path="/emptypetable" element={<EmploymentTypeTable />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/Employee" element={<Employee />} />
+          </Routes>
+        </Layout>
+      )}
+    </>
   );
 }
 
