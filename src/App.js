@@ -9,15 +9,28 @@ import AddEmploymentType from "./components/EmploymentType/AddEmploymentType";
 import EmploymentTypeTable from "./components/EmploymentType/EmploymentTypeTable";
 import Auth from "./components/Auth/Auth";
 import { useSelector } from "react-redux";
+import Notification from "./components/Notification";
 
 function App() {
   // const isLoggedIn = useSelector((state) => state.Auth.isLoggedIn);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
   return (
     <>
-      {!isLoggedIn && <Auth />}
+      {/* <Notification type="success" message={"TG"} /> */}
+      <Layout>
+        <Routes>
+          <Route path="/" element={<TripReq />} />
+          <Route path="/add-emptype" element={<AddEmploymentType />} />
+          <Route path="/emptype/edit/:id" element={<AddEmploymentType />} />
+          <Route path="/emptypetable" element={<EmploymentTypeTable />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/Employee" element={<Employee />} />
+        </Routes>
+      </Layout>
+
+      {/* {!isLoggedIn && <Auth />}
       {isLoggedIn && (
         <Layout>
           <Routes>
@@ -29,7 +42,7 @@ function App() {
             <Route path="/Employee" element={<Employee />} />
           </Routes>
         </Layout>
-      )}
+      )} */}
     </>
   );
 }

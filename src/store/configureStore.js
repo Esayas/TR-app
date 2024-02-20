@@ -5,7 +5,7 @@ import authSlice from "./auth-slice";
 const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
-    emptype: emptypeSlice.reducer,
+    emptypes: emptypeSlice.reducer,
   },
 });
 
