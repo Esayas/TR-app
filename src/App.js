@@ -14,11 +14,14 @@ import Notification from "./components/Notification";
 function App() {
   // const isLoggedIn = useSelector((state) => state.Auth.isLoggedIn);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const notification = useSelector((state) => state.ui.notification);
 
   // console.log(isLoggedIn);
   return (
     <>
-      {/* <Notification type="success" message={"TG"} /> */}
+      {notification && (
+        <Notification type={notification.type} message={notification.message} />
+      )}
       <Layout>
         <Routes>
           <Route path="/" element={<TripReq />} />

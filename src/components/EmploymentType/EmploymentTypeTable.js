@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { emptypeActions } from "../../store/emptype-slice";
+import { employmentTypeService } from "../../services/employmentTypeService";
+import { uiActions } from "../../store/ui-slice";
 
 function EmploymentTypeTable() {
   // const [employmenttypes, setEmploymenttype] = useState([]);
@@ -17,39 +19,86 @@ function EmploymentTypeTable() {
   // console.log("TG");
   // console.log(list);
   // console.log("TG");
-  function getdata() {
+  function getall() {
     setLoading(true);
-    fetch("http://localhost:5116/api/EmploymentType")
-      .then((response) => response.json())
-      .then((json) => {
+    // fetch("http://localhost:5116/api/EmploymentType")
+    //   .then((response) => response.json())
+    //   .then((json) => {
+    //     dispatch(emptypeActions.getall(json));
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
+    employmentTypeService.getAll().then(
+      (json) => {
+        //requesting data
+        dispatch(
+          uiActions.showNotification({
+            open: true,
+            message: "Requesting data",
+            type: "warning",
+          })
+        );
         dispatch(emptypeActions.getall(json));
+        // dispatch(
+        //   uiActions.showNotification({
+        //     open: false,
+        //   })
+        // );
+      },
+      (error) => {
+        dispatch(
+          uiActions.showNotification({
+            open: true,
+            message: error,
+            type: "error",
+          })
+        );
+      }
+    );
 
-        //console.log(employmenttypes);
-
-        //setEmploymenttype(json);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    setLoading(false);
   }
 
   useEffect(() => {
-    getdata();
+    getall();
   }, []);
 
   function deletehandler(id) {
-    fetch(`http://localhost:5116/api/EmploymentType/${id}`, {
-      method: "DELETE",
-      body: id,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(() => {
-      dispatch(emptypeActions.removedata(id));
-      getdata();
-    });
-
-    //props.onAddMeetup(enteredEmploymenttype);
+    // fetch(`http://localhost:5116/api/EmploymentType/${id}`, {
+    //   method: "DELETE",
+    //   body: id,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // }).then(() => {
+    //   dispatch(emptypeActions.removedata(id));
+    //   getall();
+    // });
+    employmentTypeService
+      .delete(id)
+      .then((data) => {
+        //Data deleted succesfully
+        dispatch(emptypeActions.removedata(id));
+        getall();
+        dispatch(
+          uiActions.showNotification({
+            open: true,
+            message: "Data delete successfully!",
+            type: "success",
+          })
+        );
+      })
+      .catch((error) => {
+        //Failed to delete
+        dispatch(
+          uiActions.showNotification({
+            open: true,
+            message: "Data Deleting failed!",
+            type: "error",
+          })
+        );
+      });
   }
 
   function edithandler(employmenttype) {

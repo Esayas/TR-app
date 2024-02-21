@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classes from "./EmploymentType.module.css";
 import { useNavigate } from "react-router-dom";
+import { uiActions } from "../../store/ui-slice";
+import { employmentTypeService } from "../../services/employmentTypeService";
 
 function AddEmploymentType() {
   // sets new state
@@ -9,6 +11,7 @@ function AddEmploymentType() {
     id: "",
     employmentTypeName: "",
   });
+  const dispatch = useDispatch();
 
   //uses to check if it is new entry or record to be updated
   const isCreating = useSelector((state) => state.emptypes.isCreating);
@@ -107,35 +110,112 @@ function AddEmploymentType() {
     };
     //console.log({ EmploymentType });
     if (isCreating) {
-      //console.log(employmenttype);
-      fetch("http://localhost:5116/api/EmploymentType", {
-        method: "POST",
-        body: JSON.stringify(EmploymentType),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
+      //sending data
+      dispatch(
+        uiActions.showNotification({
+          open: true,
+          message: "Saving data",
+          type: "warning",
+        })
+      );
+
+      employmentTypeService
+        .create(EmploymentType)
         .then((data) => {
-          //console.log(data);
-          //setEmploymentType("");
+          //Data saved succesfully
+          dispatch(
+            uiActions.showNotification({
+              open: true,
+              message: "Saved data successfully!",
+              type: "success",
+            })
+          );
 
           navigate("/emptypetable");
+        })
+        .catch((error) => {
+          //Failed to save
+          dispatch(
+            uiActions.showNotification({
+              open: true,
+              message: "Saving data failed!",
+              type: "error",
+            })
+          );
         });
-    } else {
-      fetch(`http://localhost:5116/api/EmploymentType/${emptype.id}`, {
-        method: "PUT",
-        body: JSON.stringify(employmenttype),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      // .then((response) => response.json())
-      // .then((data) => {
-      //setEmploymentType("");
 
-      navigate("/emptypetable");
+      // fetch("http://localhost:5116/api/EmploymentType", {
+      //   method: "POST",
+      //   body: JSON.stringify(EmploymentType),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // })
+      //   .then((response) => response.json())
+      // .then((data) => {
+      //   //Data saved succesfully
+      //   dispatch(
+      //     uiActions.showNotification({
+      //       open: true,
+      //       message: "Saved data successfully!",
+      //       type: "success",
+      //     })
+      //   );
+
+      //   navigate("/emptypetable");
+      // })
+      // .catch((error) => {
+      //   //Failed to save
+      //   dispatch(
+      //     uiActions.showNotification({
+      //       open: true,
+      //       message: "Saving data failed!",
+      //       type: "error",
+      //     })
+      //   );
       // });
+    } else {
+      // fetch(`http://localhost:5116/api/EmploymentType/${emptype.id}`, {
+      //   method: "PUT",
+      //   body: JSON.stringify(employmenttype),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+
+      //updating data
+      dispatch(
+        uiActions.showNotification({
+          open: true,
+          message: "Updating data",
+          type: "warning",
+        })
+      );
+
+      employmentTypeService
+        .edit(employmenttype)
+        .then((data) => {
+          //Data updated succesfully
+          dispatch(
+            uiActions.showNotification({
+              open: true,
+              message: "Updated data successfully!",
+              type: "success",
+            })
+          );
+
+          navigate("/emptypetable");
+        })
+        .catch((error) => {
+          //Failed to save
+          dispatch(
+            uiActions.showNotification({
+              open: true,
+              message: "Updating failed!",
+              type: "error",
+            })
+          );
+        });
     }
   }
 
