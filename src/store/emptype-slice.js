@@ -16,7 +16,9 @@ const emptypeSlice = createSlice({
       //console.log(state.employmenttype);
     },
     getdata(state, action) {},
-    createnew(state, action) {},
+    createnew(state, action) {
+      state.isCreating = true;
+    },
     editdata(state, action) {
       state.isCreating = false;
       state.employmenttype = action.payload;
