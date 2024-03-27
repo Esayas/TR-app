@@ -4,6 +4,7 @@ import { triptypeActions } from "../../store/triptype-slice";
 import { useNavigate, useParams } from "react-router-dom";
 import { uiActions } from "../../store/ui-slice";
 import { tripTypeService } from "../../services/tripTypeService";
+import { employmentTypeService } from "../../services/employmentTypeService";
 
 function AddTripType() {
   const [triptype, setTripType] = useState("");
@@ -20,8 +21,8 @@ function AddTripType() {
   const { id } = useParams();
 
   useEffect(() => {
-    console.log(id);
-    console.log(isCreating);
+    // console.log(id);
+    // console.log(isCreating);
     if (id > 0) {
       // setIsUpdating(true);
       dispatch(triptypeActions.editdata());

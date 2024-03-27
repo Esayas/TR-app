@@ -11,7 +11,7 @@
 
 main {
     width: 100%;
-    padding-top: 10px;
+    padding-top: 0px;
     padding-left: 0px;
 }
 
@@ -62,3 +62,5 @@ main {
 .link_text {
     font-size: 20px;
 }
+
+

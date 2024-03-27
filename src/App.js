@@ -1,5 +1,5 @@
 import "./App.css";
-
+// import "antd/dist/reset.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Employee from "./pages/Employee";
 import TripReq from "./pages/TripReq";
@@ -14,6 +14,8 @@ import Notification from "./components/Notification";
 import AddTripType from "./components/TripType/AddTripType";
 import EditTripType from "./components/TripType/EditTripType";
 import Sidebar from "./components/layout/Sidebar";
+import AddEmployee from "./components/Employee/AddEmployee";
+import EmployeeTable from "./components/Employee/EmployeeTable";
 
 function App() {
   // const isLoggedIn = useSelector((state) => state.Auth.isLoggedIn);
@@ -37,8 +39,13 @@ function App() {
             <Route path="/add-triptype" element={<AddTripType />} />
             <Route path="/triptype/edit/:id" element={<AddTripType />} />
             <Route path="/triptypetable" element={<TripTypeTable />} />
+
             <Route path="/login" element={<Login />} />
+
             <Route path="/Employee" element={<Employee />} />
+            <Route path="/add-employee" element={<AddEmployee />} />
+            <Route path="/employee/edit/:id" element={<AddEmployee />} />
+            <Route path="/employeetable" element={<EmployeeTable />} />
           </Routes>
         </Sidebar>
       </Layout>

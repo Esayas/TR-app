@@ -1,9 +1,9 @@
-export const tripTypeService = {
+export const sectionService = {
   getAll,
   create,
   edit,
-  // get,
-  delete: deleteTripType,
+  getbydtystationId,
+  delete: deleteSection,
 };
 
 function getAll() {
@@ -12,47 +12,57 @@ function getAll() {
     // headers: authHeader(),
   };
 
-  return fetch("http://localhost:5116/api/TripType", requestOptions).then(
+  return fetch("http://localhost:5116/api/Section", requestOptions).then(
     handleResponse
   );
 }
 
-function create(TripType) {
-  console.log(TripType);
+function getbydtystationId(dtyid) {
+  const requestOptions = {
+    method: "GET",
+    // headers: authHeader(),
+  };
+  return fetch(
+    "http://localhost:5116/api/Section/bydutystation/" + dtyid,
+    requestOptions
+  ).then(handleResponse);
+}
+
+function create(Section) {
   const requestOptions = {
     method: "POST",
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify(TripType),
+    body: JSON.stringify(Section),
   };
 
-  return fetch("http://localhost:5116/api/TripType", requestOptions).then(
+  return fetch("http://localhost:5116/api/Section", requestOptions).then(
     handleResponse
   );
 }
 
-function edit(TripType) {
+function edit(Section) {
   const requestOptions = {
     method: "PUT",
     headers: {
       "content-type": "application/json; charset=UTF-8",
     },
-    body: JSON.stringify(TripType),
+    body: JSON.stringify(Section),
   };
-  const id = TripType.id;
-  return fetch("http://localhost:5116/api/TripType/" + id, requestOptions).then(
+  const id = Section.id;
+  return fetch("http://localhost:5116/api/Section/" + id, requestOptions).then(
     handleResponse
   );
 }
 
-function deleteTripType(id) {
+function deleteSection(id) {
   const requestOptions = {
     method: "DELETE",
     headers: { "content-type": "applicaiton/json" },
   };
 
-  return fetch("http://localhost:5116/api/TripType/" + id, requestOptions).then(
+  return fetch("http://localhost:5116/api/Section/" + id, requestOptions).then(
     handleResponse
   );
 }

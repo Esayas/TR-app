@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import classes from "./Sidebar.module.css";
+import SidebarItem from "./Sidebaritem";
 
 const Sidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -26,13 +27,13 @@ const Sidebar = ({ children }) => {
       icon: <FaCommentAlt />,
     },
     {
-      path: "/analytics",
-      name: "Analytics",
+      path: "/add-employee",
+      name: "Employee",
       icon: <FaRegChartBar />,
     },
     {
-      path: "/about",
-      name: "About",
+      path: "/employeetable",
+      name: "Employe Table",
       icon: <FaUserAlt />,
     },
     {
@@ -50,18 +51,26 @@ const Sidebar = ({ children }) => {
       icon: <FaThList />,
       childrens: [
         {
+          path: "/triptypetable",
           title: "Facebook",
           icon: "bi-facebook",
         },
         {
+          path: "/triptypetable",
           title: "Twitter",
           icon: "bi-twitter",
         },
         {
+          path: "/triptypetable",
           title: "Instagram",
           icon: "bi-instagram",
         },
       ],
+    },
+    {
+      path: "/productList",
+      name: "Product List",
+      icon: <FaThList />,
     },
   ];
   return (
@@ -100,6 +109,10 @@ const Sidebar = ({ children }) => {
             </div>
           </NavLink>
         ))}
+
+        {/* {menuItem.map((item, index) => (
+          <SidebarItem key={index} item={item} />
+        ))} */}
       </div>
       <main>{children}</main>
     </div>
