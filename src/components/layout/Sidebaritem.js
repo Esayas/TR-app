@@ -36,7 +36,7 @@ export default function SidebarItem({ item, index }) {
         to={item.path}
         key={index}
         className={classes.link}
-        activeclassName={classes.active}
+        // activeclassName={classes.active}
       >
         <div className={classes.icon}>{item.icon}</div>
         <div

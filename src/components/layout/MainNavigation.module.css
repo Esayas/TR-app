@@ -1,11 +1,11 @@
 .header {
     width: 100%;
-    height: 5rem;
+    height: 3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color:#000;
-    
+    background-color:#000;     
+    /* justify-content: center; */
 }
 
 .log {
@@ -16,24 +16,24 @@
 
 .header a {
     text-decoration: none;
-    font-size: 1rem;
-    color: bisque;
+    font-size: 15px;
+    color:  white;
 }
 
 .header a:hover,
 .header a:active,
 .header a.active {
-    color: white;
+    color: bisque;
 }
 
 .header ul {
     list-style: none;
     margin: 0;
     /* display: flex; */
-    font-size: 1rem;
+    font-size: 10px;
     color: white;
 
-    font-weight: bold;
+    /* font-weight: bold; */
     display: flex;
 
     gap: 10px;

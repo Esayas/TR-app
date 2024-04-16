@@ -37,13 +37,13 @@ const Sidebar = ({ children }) => {
       icon: <FaUserAlt />,
     },
     {
-      path: "/product",
-      name: "Product",
+      path: "/RegisterTable",
+      name: "Register",
       icon: <FaShoppingBag />,
     },
     {
-      path: "/productList",
-      name: "Product List",
+      path: "/Login",
+      name: "Login",
       icon: <FaThList />,
     },
     {
@@ -98,7 +98,7 @@ const Sidebar = ({ children }) => {
             to={item.path}
             key={index}
             className={classes.link}
-            activeclassName={classes.active}
+            // activeclassName={classes.active}
           >
             <div className={classes.icon}>{item.icon}</div>
             <div

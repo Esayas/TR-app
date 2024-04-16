@@ -90,6 +90,7 @@ function AddTripType() {
       tripTypeService
         .create(TripType)
         .then((data) => {
+          console.log(TripType);
           //Data saved succesfully
           dispatch(
             uiActions.showNotification({

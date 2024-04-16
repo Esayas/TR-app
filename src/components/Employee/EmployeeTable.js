@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Table, Modal, Input } from "antd";
+import { Button, Table, Modal, Input, Select } from "antd";
 import { useState } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,14 +8,26 @@ import { employeeActions } from "../../store/employee-slice";
 import { uiActions } from "../../store/ui-slice";
 import { employeeService } from "../../services/employeeService";
 import { SearchOutlined } from "@ant-design/icons";
+import { employeereporttoService } from "../../services/employeereporttoService";
 
 function EmployeeTable() {
   const [loading, setLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingEmployee, setEditingEmployee] = useState(null);
+  const [reportto, setReportto] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { Option } = Select;
   const employeelist = useSelector((state) => state.employee.employees);
+
+  const handleChangeNormalSelect = (e) => {
+    const updatedOptions = [...e.target.options]
+      .filter((option) => option.selected)
+      .map((x) => x.value);
+    console.log("updatedOptions", updatedOptions);
+    setReportto(updatedOptions);
+  };
 
   const getColumnSearch = (dataindex) => ({
     filterDropdown: ({
@@ -96,6 +108,7 @@ function EmployeeTable() {
   useEffect(() => {
     getall();
   }, []);
+
   const columns = [
     {
       key: "1",
@@ -147,13 +160,29 @@ function EmployeeTable() {
     },
     {
       key: "7",
+      title: "Report to",
+      render: (record) => {
+        return (
+          <Button
+            onClick={() => {
+              onEmployeeReportTo(record);
+            }}
+            className="btn btn-primary"
+          >
+            Employee Report to
+          </Button>
+        );
+      },
+    },
+    {
+      key: "8",
       title: "Actions",
       render: (record) => {
         return (
           <>
             <EditOutlined
               onClick={() => {
-                onEditEmployee(record.id);
+                onEditEmployee(record);
               }}
             />
             <DeleteOutlined
@@ -178,8 +207,6 @@ function EmployeeTable() {
           .delete(record.id)
           .then((data) => {
             console.log(record.id);
-            //Data deleted succesfully
-            // dispatch(employeeActions.removedata(record.id));
 
             getall();
             dispatch(
@@ -204,15 +231,34 @@ function EmployeeTable() {
     });
   };
 
-  const onEditEmployee = (id) => {
-    console.log(id);
+  const onEmployeeReportTo = (record) => {
+    const ary = [];
+    setIsEditing(true);
+    setEditingEmployee({ ...record });
+    console.log(record.id);
+    console.log("TG");
+    employeereporttoService.getByEmployeeId(record.id).then((result) => {
+      if (result != null) {
+        // ary.push(1);
+        console.log(result);
 
-    navigate(`/employee/edit/${id}`);
+        result.forEach((res) => {
+          ary.push(res.reportTo);
+        });
 
-    // to={`/triptype/edit/${triptype.id}`}
-    // navigation.navigate("RouteName", {
-    //   /* params go here */
-    // });
+        setReportto(ary);
+      }
+    });
+  };
+
+  const resetEditing = () => {
+    setIsEditing(false);
+  };
+
+  const onEditEmployee = (record) => {
+    console.log(record.id);
+
+    navigate(`/employee/edit/${record.id}`);
   };
 
   return (
@@ -238,6 +284,98 @@ function EmployeeTable() {
             pageSizeOptions: ["5", "10", "20", "30", "50", "100"],
           }}
         ></Table>
+        <Modal
+          title="Employee Report to"
+          open={isEditing}
+          okText="Save"
+          onCancel={() => {
+            resetEditing();
+          }}
+          onOk={() => {
+            // First check if supervisor exists and delete all records
+            const empId = editingEmployee.id;
+
+            employeereporttoService
+              .getByEmployeeId(empId)
+              .then((emprepto) => {
+                console.log(emprepto);
+                if (emprepto.lenght > 0) {
+                  emprepto.forEach((emp) => {
+                    employeereporttoService.delete(emp.id);
+                  });
+                }
+              })
+              .catch((error) => {
+                console.log("error");
+              });
+
+            reportto.forEach((repto) => {
+              const Employeereportto = {
+                employeeId: editingEmployee?.id,
+                reportTo: repto,
+              };
+              //Save Employee Report To
+              employeereporttoService
+                .create(Employeereportto)
+                .then((data) => {})
+                .catch((error) => {
+                  //Failed to save
+                  dispatch(
+                    uiActions.showNotification({
+                      open: true,
+                      message: error,
+                      type: "error",
+                    })
+                  );
+                });
+            });
+            //Data saved succesfully
+            dispatch(
+              uiActions.showNotification({
+                open: true,
+                message: "Saved data successfully!",
+                type: "success",
+              })
+            );
+            resetEditing();
+          }}
+        >
+          {/* <Select
+            // onChange={handleChangeNormalSelect}
+            value={reportto}
+            placeholder="Select the supervisor(s)"
+            maxTagCount={4}
+            allowClear
+            style={{ width: "100%" }}
+            mode="multiple"
+            // options={employeelist}
+          >
+            {employeelist.map((employee) => (
+              <Option value={employee.id}>{employee.fullName}</Option>
+            ))}
+          </Select> */}
+
+          <select
+            onChange={handleChangeNormalSelect}
+            multiple
+            value={reportto}
+            options={employeelist}
+            size={10}
+          >
+            {employeelist.map((item) => {
+              return <option value={item.id}>{item.fullName}</option>;
+            })}
+          </select>
+
+          {/* <Input
+            value={editingEmployee?.id}
+            onChange={(e) => {
+              setEditingEmployee((pre) => {
+                return { ...pre, id: e.target.value };
+              });
+            }}
+          /> */}
+        </Modal>
       </header>
     </div>
   );

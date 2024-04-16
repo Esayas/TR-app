@@ -129,6 +129,7 @@ function AddEmployee() {
       employeeService
         .create(values)
         .then((data) => {
+          console.log(values);
           //Data saved succesfully
           dispatch(
             uiActions.showNotification({
@@ -380,12 +381,12 @@ function AddEmployee() {
             name="employeereportto"
             label="Employee Report to"
             style={{ marginBottom: 12 }}
-            rules={[
-              {
-                // required: true,
-                // message: "Please select employees supervisor",
-              },
-            ]}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Please select employees supervisor",
+            //   },
+            // ]}
           >
             <Select
               placeholder="Select the supervisor(s)"

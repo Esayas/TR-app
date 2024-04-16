@@ -3,7 +3,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Employee from "./pages/Employee";
 import TripReq from "./pages/TripReq";
-import Login from "./pages/Login";
+
 import Layout from "./components/layout/layout";
 import AddEmploymentType from "./components/EmploymentType/AddEmploymentType";
 import EmploymentTypeTable from "./components/EmploymentType/EmploymentTypeTable";
@@ -16,39 +16,68 @@ import EditTripType from "./components/TripType/EditTripType";
 import Sidebar from "./components/layout/Sidebar";
 import AddEmployee from "./components/Employee/AddEmployee";
 import EmployeeTable from "./components/Employee/EmployeeTable";
+import Register from "./components/Auth/UserAccount/Register";
+import RegisterTable from "./components/Auth/UserAccount/RegisterTable";
+import RegisterEdit from "./components/Auth/UserAccount/RegisterEdit";
+import Login from "./components/Auth/Login";
+// import { IdleTimer } from "react-idle-timer";
 
 function App() {
+  //idle time out
+  // const handleOnIdle = (event) => {
+  //   console.log("User is idle", event);
+  //   // Actions to perform when the user is idle
+  // };
+
+  // const handleOnActive = (event) => {
+  //   console.log("User is active", event);
+  //   // Actions to perform when the user becomes active again
+  // };
+
   // const isLoggedIn = useSelector((state) => state.Auth.isLoggedIn);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.loginuser.loggedIn);
+  //  const employeelist = useSelector((state) => state.employee.employees);
   const notification = useSelector((state) => state.ui.notification);
 
   // console.log(isLoggedIn);
   return (
+    // <IdleTimer
+    //   timeout={1000 * 60 * 1} // 15 minutes
+    //   onIdle={handleOnIdle}
+    //   onActive={handleOnActive}
+    // >
     <>
       {notification && (
         <Notification type={notification.type} message={notification.message} />
       )}
-      <Layout>
-        <Sidebar>
-          <Routes>
-            <Route path="/" element={<TripReq />} />
-            <Route path="/add-emptype" element={<AddEmploymentType />} />
-            <Route path="/emptype/edit/:id" element={<AddEmploymentType />} />
-            <Route path="/emptypetable" element={<EmploymentTypeTable />} />
 
-            <Route path="/add-triptype" element={<AddTripType />} />
-            <Route path="/triptype/edit/:id" element={<AddTripType />} />
-            <Route path="/triptypetable" element={<TripTypeTable />} />
+      {!isLoggedIn && <Login />}
+      {isLoggedIn && (
+        <Layout>
+          <Sidebar>
+            <Routes>
+              <Route path="/" element={<TripReq />} />
+              <Route path="/add-emptype" element={<AddEmploymentType />} />
+              <Route path="/emptype/edit/:id" element={<AddEmploymentType />} />
+              <Route path="/emptypetable" element={<EmploymentTypeTable />} />
 
-            <Route path="/login" element={<Login />} />
+              <Route path="/add-triptype" element={<AddTripType />} />
+              <Route path="/triptype/edit/:id" element={<AddTripType />} />
+              <Route path="/triptypetable" element={<TripTypeTable />} />
 
-            <Route path="/Employee" element={<Employee />} />
-            <Route path="/add-employee" element={<AddEmployee />} />
-            <Route path="/employee/edit/:id" element={<AddEmployee />} />
-            <Route path="/employeetable" element={<EmployeeTable />} />
-          </Routes>
-        </Sidebar>
-      </Layout>
+              <Route path="/login" element={<Login />} />
+
+              <Route path="/Employee" element={<Employee />} />
+              <Route path="/add-employee" element={<AddEmployee />} />
+              <Route path="/employee/edit/:id" element={<AddEmployee />} />
+              <Route path="/employeetable" element={<EmployeeTable />} />
+              <Route path="/RegisterTable" element={<RegisterTable />} />
+              <Route path="/Register" element={<Register />} />
+              <Route path="/useraccount/edit/:id" element={<RegisterEdit />} />
+            </Routes>
+          </Sidebar>
+        </Layout>
+      )}
 
       {/* {!isLoggedIn && <Auth />}
       {isLoggedIn && (
@@ -64,6 +93,7 @@ function App() {
         </Layout>
       )} */}
     </>
+    // </IdleTimer>
   );
 }
 
