@@ -128,6 +128,12 @@ function RegisterTable() {
     //   record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
   });
 
+  const onRoleChange = (record) => {
+    // console.log(record.id);
+
+    navigate(`/useraccount/user-role/${record.id}`);
+  };
+
   const columns = [
     {
       key: "1",
@@ -179,8 +185,12 @@ function RegisterTable() {
           >
             Edit
           </Button>
+
           <Button
-            href={"/user-role/" + record.id}
+            onClick={() => {
+              onRoleChange(record);
+            }}
+            // href={"/useraccount/user-role/" + record.id}
             data-toggle="tooltip"
             data-placement="top"
             title="Change User Role"

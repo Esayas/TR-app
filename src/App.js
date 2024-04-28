@@ -20,6 +20,8 @@ import Register from "./components/Auth/UserAccount/Register";
 import RegisterTable from "./components/Auth/UserAccount/RegisterTable";
 import RegisterEdit from "./components/Auth/UserAccount/RegisterEdit";
 import Login from "./components/Auth/Login";
+import UserRole from "./components/Auth/UserAccount/UserRole";
+
 // import { IdleTimer } from "react-idle-timer";
 
 function App() {
@@ -38,7 +40,8 @@ function App() {
   const isLoggedIn = useSelector((state) => state.loginuser.loggedIn);
   //  const employeelist = useSelector((state) => state.employee.employees);
   const notification = useSelector((state) => state.ui.notification);
-
+  console.log("TGTGGGG");
+  console.log(isLoggedIn);
   // console.log(isLoggedIn);
   return (
     // <IdleTimer
@@ -71,14 +74,15 @@ function App() {
               <Route path="/add-employee" element={<AddEmployee />} />
               <Route path="/employee/edit/:id" element={<AddEmployee />} />
               <Route path="/employeetable" element={<EmployeeTable />} />
+
               <Route path="/RegisterTable" element={<RegisterTable />} />
               <Route path="/Register" element={<Register />} />
               <Route path="/useraccount/edit/:id" element={<RegisterEdit />} />
+              <Route path="/useraccount/user-role/:id" element={<UserRole />} />
             </Routes>
           </Sidebar>
         </Layout>
       )}
-
       {/* {!isLoggedIn && <Auth />}
       {isLoggedIn && (
         <Layout>

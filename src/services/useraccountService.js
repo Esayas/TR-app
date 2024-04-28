@@ -8,6 +8,8 @@ export const userAccountService = {
   disable,
   delete: deleteUserAccount,
   editprofile,
+  getUserRoles,
+  assignRole,
 };
 
 // function login(username, password) {
@@ -78,6 +80,19 @@ function create(UserAccount) {
   );
 }
 
+function assignRole(userRoles) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userRoles),
+  };
+
+  return fetch(
+    "http://localhost:5116/api/useraccount/userRoles",
+    requestOptions
+  ).then(handleResponse);
+}
+
 function edit(UserAccount) {
   const requestOptions = {
     method: "PUT",
@@ -134,6 +149,17 @@ function disable(UserAccount) {
 
   return fetch(
     `http://localhost:5116/api/UserAccount/disable`,
+    requestOptions
+  ).then(handleResponse);
+}
+
+function getUserRoles(id) {
+  const requestOptions = {
+    method: "GET",
+  };
+
+  return fetch(
+    `http://localhost:5116/api/useraccount/userRoles/${id}`,
     requestOptions
   ).then(handleResponse);
 }
