@@ -1,3 +1,6 @@
+import { authHeader } from "../helpers/authHeader";
+import { authRole } from "../helpers/authHeader";
+
 export const employeeService = {
   getAll,
   create,
@@ -9,7 +12,8 @@ export const employeeService = {
 function getAll() {
   const requestOptions = {
     method: "GET",
-    // headers: authHeader(),
+    headers: authHeader(),
+    // body: { Roles: authRole() },
   };
 
   return fetch("http://localhost:5116/api/Employee", requestOptions).then(
@@ -20,7 +24,7 @@ function getAll() {
 function get(id) {
   const requestOptions = {
     method: "GET",
-    // headers: authHeader(),
+    headers: authHeader(),
   };
   return fetch("http://localhost:5116/api/Employee/" + id, requestOptions).then(
     handleResponse

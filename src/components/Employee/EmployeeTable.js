@@ -167,7 +167,7 @@ function EmployeeTable() {
             onClick={() => {
               onEmployeeReportTo(record);
             }}
-            className="btn btn-primary"
+            // className="btn btn-primary"
           >
             Employee Report to
           </Button>

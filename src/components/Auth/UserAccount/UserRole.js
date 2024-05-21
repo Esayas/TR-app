@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { userAccountService } from "../../../services/useraccountService";
 import { Form, Checkbox } from "antd";
+import { isInRole } from "../../../helpers/authHeader";
 
 function UserRole() {
   const [userRoles, setUserRoles] = useState([]);
@@ -12,6 +13,15 @@ function UserRole() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const handleRemoveItem = (rname) => {
+    setUserRoles((l) => l.filter((item) => item.roleName !== rname));
+  };
+
+  const deleteByRoleName = (rName) => {
+    setUserRoles((oldValues) => {
+      return oldValues.filter((fruit) => fruit.roleName !== rName);
+    });
+  };
   useEffect(() => {
     if (id > 0) {
       //get user profile
@@ -25,10 +35,33 @@ function UserRole() {
       userAccountService
         .getUserRoles(id)
         .then((result) => {
-          setUserRoles(result);
+          console.log("TG_Result");
+          console.log(result);
+          if (!isInRole("SuperAdmin")) {
+            // setUserRoles(result);
+            setUserRoles(result.filter((a) => a.roleName !== "SuperAdmin"));
+          } else {
+            setUserRoles(result);
+          }
         })
         .catch((error) => {});
     }
+
+    //Remove Super Admin if the user role is not super admin
+    // console.log(isInRole("SuperAdmin"));
+    // if (!isInRole("SuperAdmin")) {
+    //   console.log("Not Admin");
+    //   // setUserRoles(userRoles.filter((a) => a.roleName !== "SuperAdmin"));
+    //   deleteByRoleName("SuperAdmin");
+    // }
+    // const tg = isInRole("SuperAdmin");
+    // console.log("TGRole");
+    // const nextList = [...userRoles];
+    // if (!isInRole("SuperAdmin")) {
+    //   setUserRoles(userRoles.filter((a) => a.roleName !== "SuperAdmin"));
+    // }
+
+    // console.log(nextList.userRole);
     // console.log("loading");
     setIsLoading(false);
   }, []);
@@ -156,6 +189,9 @@ function UserRole() {
 
           {userRoles.map((userRole) => (
             // <h2 key={product.productID}>{product.productName}</h2>
+            // {if((userRole.roleName === "SuperAdmin") && isInRole("SuperAdmin")) {}}
+            // {userRole.roleName === "SuperAdmin" && isInRole("SuperAdmin")}
+
             <div>
               <Checkbox
                 name={userRole.roleName}

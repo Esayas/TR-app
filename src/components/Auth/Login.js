@@ -30,8 +30,8 @@ function Login() {
 
     try {
       if (user && pwd) {
-        console.log(user);
-        console.log(pwd);
+        // console.log(user);
+        // console.log(pwd);
         const username = { user };
         const password = { pwd };
 
@@ -44,7 +44,9 @@ function Login() {
         };
         // userAccountService.login(user, pwd).then((user) => {
         userAccountService.login(UserAccount).then((user) => {
+          console.log(user);
           dispatch(authenticationActions.login(user));
+          // console.log(user);
           //Data saved succesfully
           // dispatch(
           //   uiActions.showNotification({
@@ -54,8 +56,8 @@ function Login() {
           //   })
           // );
           // dispatch(triptypeActions.createnew());
-          console.log("TGTGTG333");
-          console.log(user);
+          // console.log("TGTGTG333");
+          // console.log(user);
           navigate("/");
         });
       }
@@ -112,6 +114,7 @@ function Login() {
             value={pwd}
             required
           />
+          <br />
           <button
             className={
               (!user || !pwd ? true : false)

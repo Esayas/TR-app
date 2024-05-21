@@ -1,6 +1,6 @@
 import "./App.css";
 // import "antd/dist/reset.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import Employee from "./pages/Employee";
 import TripReq from "./pages/TripReq";
 
@@ -21,6 +21,9 @@ import RegisterTable from "./components/Auth/UserAccount/RegisterTable";
 import RegisterEdit from "./components/Auth/UserAccount/RegisterEdit";
 import Login from "./components/Auth/Login";
 import UserRole from "./components/Auth/UserAccount/UserRole";
+import Unauthorized from "./components/Unauthorized";
+import { PrivateRoute } from "./components/PrivateRoute";
+import RequireAuth from "./components/RequireAuth";
 
 // import { IdleTimer } from "react-idle-timer";
 
@@ -63,22 +66,36 @@ function App() {
               <Route path="/add-emptype" element={<AddEmploymentType />} />
               <Route path="/emptype/edit/:id" element={<AddEmploymentType />} />
               <Route path="/emptypetable" element={<EmploymentTypeTable />} />
-
               <Route path="/add-triptype" element={<AddTripType />} />
               <Route path="/triptype/edit/:id" element={<AddTripType />} />
               <Route path="/triptypetable" element={<TripTypeTable />} />
-
               <Route path="/login" element={<Login />} />
-
               <Route path="/Employee" element={<Employee />} />
               <Route path="/add-employee" element={<AddEmployee />} />
               <Route path="/employee/edit/:id" element={<AddEmployee />} />
-              <Route path="/employeetable" element={<EmployeeTable />} />
 
-              <Route path="/RegisterTable" element={<RegisterTable />} />
+              {/* <Route path="/employeetable" element={<EmployeeTable />} /> */}
+              {/* uses Private route as an example */}
+              <Route
+                path="/employeetable"
+                element={
+                  <PrivateRoute role="SuperAdmin">
+                    <EmployeeTable />
+                  </PrivateRoute>
+                }
+              />
+
+              <Route element={<RequireAuth allowedRoles={["SuperAdmin"]} />}>
+                <Route path="RegisterTable" element={<RegisterTable />} />
+              </Route>
+
+              {/* <Route path="/RegisterTable" element={<RegisterTable />} /> */}
               <Route path="/Register" element={<Register />} />
               <Route path="/useraccount/edit/:id" element={<RegisterEdit />} />
               <Route path="/useraccount/user-role/:id" element={<UserRole />} />
+              <Route path="/unauthorized" element={<Unauthorized />} />
+
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </Sidebar>
         </Layout>

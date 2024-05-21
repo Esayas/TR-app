@@ -20,7 +20,7 @@ function login(UserAccount) {
     body: JSON.stringify(UserAccount),
     // body: JSON.stringify({ username, password }),
   };
-  console.log(UserAccount);
+  // console.log(UserAccount);
 
   return fetch(
     "http://localhost:5116/api/UserAccount/authenticate",

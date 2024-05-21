@@ -86,7 +86,9 @@ section {
   flex-direction: column;
   justify-content: flex-start;
   padding: 1rem;
-  background-color: rgba(173, 173, 173, 0.4);
+  background-color: rgba(244, 241, 241, 0.731);
+
+  
 }
 
 form {
@@ -159,9 +161,16 @@ button {
 }
 
 section > h4 {
-  color: white;
+  color: rgb(81, 7, 151);
   justify-content: center;
   /* margin-left: 0; */
+}
+
+.flexGrow {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
 }
 
 .form-group {
