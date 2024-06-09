@@ -80,7 +80,7 @@ body {
 
 section {
   width: 100%;
-  max-width: 420px;
+  max-width: 620px;
   min-height: 400px;
   display: flex;
   flex-direction: column;
@@ -89,6 +89,22 @@ section {
   background-color: rgba(244, 241, 241, 0.731);
 
   
+}
+
+.loginsection {
+  width: 100%;
+  max-width: 460px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  
+  align-content: center;
+  padding: 1rem;
+  background-color: rgba(244, 241, 241, 0.731);
+
+
 }
 
 form {
@@ -106,7 +122,7 @@ button,
 textarea {
   font-family: 'Nunito', sans-serif;
   font-size: 22px;
-  padding: 0.25rem;
+  padding: 0.5rem;
   border-radius: 0.5rem;
 }
 
@@ -173,13 +189,58 @@ section > h4 {
   align-items: flex-end;
 }
 
+               
+
 .form-group {
-  /* margin: 0 auto 1.5rem auto;
+  margin: 0 auto 1.5rem auto;
   display: flex;
   align-items: left;
   justify-content: left;
-  flex-wrap: wrap; */
+  flex-wrap: wrap;
+
+
 }
+
+label {
+  float: left;
+}
+
+span {
+  display: block;
+  overflow: hidden;
+  padding: 0px 4px 0px 6px;
+}
+
+/* input {
+  width: 70%;
+} */
+
+/* 
+.form {
+  margin-top: 50px;
+  width: 100%;
+}
+        
+.form label {
+  display: inline-block;
+  width: 200px;
+}
+        
+.searchbar {
+  margin-bottom: 20px;
+  width: 80%;
+  max-width: 700px;
+  height: 10px;
+  padding: 10px;
+  border-width: thin;
+  border-color: lightgray;
+  } */
+
+
+        
+                /* input {
+                  width: 70%;
+                } */
 
 /* side bar css
 * {

@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
 import { Button, Table, Modal, Input, Select } from "antd";
 import { useState } from "react";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { employeeActions } from "../../store/employee-slice";
 import { uiActions } from "../../store/ui-slice";
 import { employeeService } from "../../services/employeeService";
-import { SearchOutlined } from "@ant-design/icons";
 import { employeereporttoService } from "../../services/employeereporttoService";
 
 function EmployeeTable() {
@@ -18,6 +21,7 @@ function EmployeeTable() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { Option } = Select;
   const employeelist = useSelector((state) => state.employee.employees);
 
@@ -25,7 +29,7 @@ function EmployeeTable() {
     const updatedOptions = [...e.target.options]
       .filter((option) => option.selected)
       .map((x) => x.value);
-    console.log("updatedOptions", updatedOptions);
+    // console.log("updatedOptions", updatedOptions);
     setReportto(updatedOptions);
   };
 
@@ -206,7 +210,7 @@ function EmployeeTable() {
         employeeService
           .delete(record.id)
           .then((data) => {
-            console.log(record.id);
+            // console.log(record.id);
 
             getall();
             dispatch(
@@ -235,12 +239,12 @@ function EmployeeTable() {
     const ary = [];
     setIsEditing(true);
     setEditingEmployee({ ...record });
-    console.log(record.id);
-    console.log("TG");
+    // console.log(record.id);
+    // console.log("TG");
     employeereporttoService.getByEmployeeId(record.id).then((result) => {
       if (result != null) {
         // ary.push(1);
-        console.log(result);
+        // console.log(result);
 
         result.forEach((res) => {
           ary.push(res.reportTo);
@@ -256,15 +260,15 @@ function EmployeeTable() {
   };
 
   const onEditEmployee = (record) => {
-    console.log(record.id);
+    // console.log(record.id);
 
     navigate(`/employee/edit/${record.id}`);
   };
 
   return (
-    <div>
+    <div className="App-section">
       <h4>Employee List</h4>
-      <header className="App-header">
+      <header>
         {/* <Button className="btn btn-primary">Add a new Emplyee</Button> */}
 
         <Link to="/add-employee" className="btn btn-success my-3">
@@ -274,10 +278,10 @@ function EmployeeTable() {
           columns={columns}
           dataSource={employeelist}
           bordered
-          style={{ display: "flex", margin: 0 }}
+          style={{ display: "flex", margin: 0, height: "400px" }}
           loading={loading}
           // size="large"
-
+          size="small"
           pagination={{
             defaultPageSize: 10,
             showSizeChanger: true,
@@ -298,7 +302,7 @@ function EmployeeTable() {
             employeereporttoService
               .getByEmployeeId(empId)
               .then((emprepto) => {
-                console.log(emprepto);
+                // console.log(emprepto);
                 if (emprepto.lenght > 0) {
                   emprepto.forEach((emp) => {
                     employeereporttoService.delete(emp.id);

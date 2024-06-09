@@ -6,6 +6,7 @@ import triptypeSlice from "./triptype-slice";
 import employeeSlice from "./employee-slice";
 import useraccountSlice from "./useraccount-slice";
 import authenticationSlice from "./authentication-slice";
+import transportrequestSlice from "./transportrequest-slice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     employee: employeeSlice.reducer,
     useraccount: useraccountSlice.reducer,
     loginuser: authenticationSlice.reducer,
+    transportrequest: transportrequestSlice.reducer,
   },
 });
 

@@ -6,6 +6,7 @@ export const employeeService = {
   create,
   edit,
   get,
+  getbyUserName,
   delete: deleteEmployee,
 };
 
@@ -31,7 +32,24 @@ function get(id) {
   );
 }
 
+function getbyUserName(uName) {
+  // console.log("GOD");
+  // console.log(uName);
+  const requestOptions = {
+    method: "GET",
+    headers: authHeader(),
+  };
+  // `http://localhost:5116/api/useraccount/userRoles/${uName}`,
+
+  return fetch(
+    `http://localhost:5116/api/Employee/username/${uName}`,
+    requestOptions
+  ).then(handleResponse);
+}
+
 function create(Employee) {
+  // console.log("ServiceEmp");
+  // console.log(Employee);
   const requestOptions = {
     method: "POST",
     headers: {

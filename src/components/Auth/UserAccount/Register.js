@@ -1,6 +1,6 @@
 import React from "react";
 import { useRef, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   faCheck,
   faTimes,
@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { userAccountService } from "../../../services/useraccountService";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { uiActions } from "../../../store/ui-slice";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -19,9 +19,6 @@ function Register() {
   const userRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const fnameRef = useRef();
-  // const errRef = useRef();
-  // const [isCreating, setIsCreating] = useState(true);
 
   const [fname, setFname] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -77,9 +74,6 @@ function Register() {
     setValidMatch(pwd === matchPwd);
   }, [pwd, matchPwd]);
 
-  //   useEffect(() => {
-  //     setErrMsg("");
-  //   }, [user, pwd, matchPwd]);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -95,7 +89,13 @@ function Register() {
     const v1 = USER_REGEX.test(user);
     const v2 = PWD_REGEX.test(pwd);
     if (!v1 || !v2) {
-      //   setErrMsg("Invalid Entry");
+      dispatch(
+        uiActions.showNotification({
+          open: true,
+          message: "Invalid user name or password!",
+          type: "success",
+        })
+      );
       return;
     }
 
@@ -104,6 +104,8 @@ function Register() {
       userAccountService
         .create(UserAccount)
         .then((data) => {
+          // console.log("333");
+          // console.log(data);
           //Data saved succesfully
           dispatch(
             uiActions.showNotification({

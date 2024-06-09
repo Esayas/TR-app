@@ -1,9 +1,9 @@
-export const tripTypeService = {
+export const serviceTypeService = {
   getAll,
   create,
   edit,
   // get,
-  delete: deleteTripType,
+  delete: deleteServiceType,
 };
 
 function getAll() {
@@ -12,49 +12,51 @@ function getAll() {
     // headers: authHeader(),
   };
 
-  return fetch("http://localhost:5116/api/TripType", requestOptions).then(
+  return fetch("http://localhost:5116/api/ServiceType", requestOptions).then(
     handleResponse
   );
 }
 
-function create(TripType) {
-  // console.log(TripType);
+function create(ServiceType) {
+  // console.log(ServiceType);
   const requestOptions = {
     method: "POST",
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify(TripType),
+    body: JSON.stringify(ServiceType),
   };
 
-  return fetch("http://localhost:5116/api/TripType", requestOptions).then(
+  return fetch("http://localhost:5116/api/ServiceType", requestOptions).then(
     handleResponse
   );
 }
 
-function edit(TripType) {
+function edit(ServiceType) {
   const requestOptions = {
     method: "PUT",
     headers: {
       "content-type": "application/json; charset=UTF-8",
     },
-    body: JSON.stringify(TripType),
+    body: JSON.stringify(ServiceType),
   };
-  const id = TripType.id;
-  return fetch("http://localhost:5116/api/TripType/" + id, requestOptions).then(
-    handleResponse
-  );
+  const id = ServiceType.id;
+  return fetch(
+    "http://localhost:5116/api/ServiceType/" + id,
+    requestOptions
+  ).then(handleResponse);
 }
 
-function deleteTripType(id) {
+function deleteServiceType(id) {
   const requestOptions = {
     method: "DELETE",
     headers: { "content-type": "applicaiton/json" },
   };
 
-  return fetch("http://localhost:5116/api/TripType/" + id, requestOptions).then(
-    handleResponse
-  );
+  return fetch(
+    "http://localhost:5116/api/ServiceType/" + id,
+    requestOptions
+  ).then(handleResponse);
 }
 
 function handleResponse(response) {

@@ -2,12 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userAccountService } from "../../../services/useraccountService";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  EditOutlined,
-  DeleteOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
-import { Button, Table, Modal, Input, Select } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+import { Button, Table, Modal, Input } from "antd";
 import { useState } from "react";
 import { useraccountActions } from "../../../store/useraccount-slice";
 import { uiActions } from "../../../store/ui-slice";
@@ -23,8 +19,10 @@ function RegisterTable() {
   const { confirm } = Modal;
   const [loading, setLoading] = useState(false);
   const [statuschanged, setStatusChanged] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const useraccountlist = useSelector(
     (state) => state.useraccount.useraccounts
   );
@@ -36,20 +34,14 @@ function RegisterTable() {
   function handleToggleStatus() {
     setStatusChanged((current) => !current);
   }
+
   function getall() {
     // handleToggle();
     setLoading(true);
-    // console.log("GFirst");
-    // console.log(useraccountlist);
-    // console.log(loading);
-
     userAccountService.getAll().then(
       (json) => {
         dispatch(useraccountActions.getall(json));
         setLoading(false);
-        // handleToggle();
-        // console.log("TG3");
-        // console.log(loading);
       },
       (error) => {
         dispatch(
@@ -130,10 +122,13 @@ function RegisterTable() {
 
   const onRoleChange = (record) => {
     // console.log(record.id);
-
     navigate(`/useraccount/user-role/${record.id}`);
   };
 
+  const onEditUserAccount = (record) => {
+    // console.log(record.id);
+    navigate(`/useraccount/edit/${record.id}`);
+  };
   const columns = [
     {
       key: "1",
@@ -177,7 +172,10 @@ function RegisterTable() {
       render: (text, record) => (
         <span>
           <Button
-            href={"/useraccount/edit/" + record.id}
+            // href={"/useraccount/edit/" + record.id}
+            onClick={() => {
+              onEditUserAccount(record);
+            }}
             // navigate(`/employee/edit/${record.id}`);
             data-toggle="tooltip"
             data-placement="top"
@@ -205,7 +203,6 @@ function RegisterTable() {
             data-placement="top"
             title="Delete User"
           >
-            {" "}
             <FontAwesomeIcon icon={faTrashAlt} />
           </Button>
           <Button
@@ -301,7 +298,7 @@ function RegisterTable() {
             dispatch(
               uiActions.showNotification({
                 open: true,
-                message: "User account Deleting failed!",
+                message: "User account deleting failed!",
                 type: "error",
               })
             );
@@ -311,9 +308,9 @@ function RegisterTable() {
   };
 
   return (
-    <div>
+    <div className="App-section">
       <h4>User Management</h4>
-      <header className="App-header">
+      <header>
         <Link to="/Register" className="btn btn-success my-3">
           Create +
         </Link>
@@ -323,8 +320,7 @@ function RegisterTable() {
           bordered
           style={{ display: "flex", margin: 0 }}
           loading={loading}
-          // size="large"
-
+          size="small"
           pagination={{
             defaultPageSize: 10,
             showSizeChanger: true,

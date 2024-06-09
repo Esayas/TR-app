@@ -22,8 +22,8 @@ const Sidebar = ({ children }) => {
       icon: <FaTh />,
     },
     {
-      path: "/triptypetable",
-      name: "Trip Type",
+      path: "/addtransportrequest",
+      name: "Transport Request",
       icon: <FaCommentAlt />,
     },
     {

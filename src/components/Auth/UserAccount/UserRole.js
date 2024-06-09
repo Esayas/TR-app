@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { userAccountService } from "../../../services/useraccountService";
-import { Form, Checkbox } from "antd";
+import { Checkbox } from "antd";
 import { isInRole } from "../../../helpers/authHeader";
 
 function UserRole() {
@@ -22,6 +22,7 @@ function UserRole() {
       return oldValues.filter((fruit) => fruit.roleName !== rName);
     });
   };
+
   useEffect(() => {
     if (id > 0) {
       //get user profile
@@ -35,8 +36,8 @@ function UserRole() {
       userAccountService
         .getUserRoles(id)
         .then((result) => {
-          console.log("TG_Result");
-          console.log(result);
+          // console.log("TG_Result");
+          // console.log(result);
           if (!isInRole("SuperAdmin")) {
             // setUserRoles(result);
             setUserRoles(result.filter((a) => a.roleName !== "SuperAdmin"));
@@ -62,8 +63,9 @@ function UserRole() {
     // }
 
     // console.log(nextList.userRole);
-    // console.log("loading");
+
     setIsLoading(false);
+    // console.log(isLoading);
   }, []);
 
   const handleSubmit = (e) => {
@@ -183,8 +185,10 @@ function UserRole() {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="userName">User name: </label>
-            <div>{isLoading ? "" : user.fullName}</div>
+            <label htmlFor="userName">
+              User name: <span>{isLoading ? "" : user.fullName}</span>
+            </label>
+            {/* <span>{isLoading ? "" : user.fullName}</span> */}
           </div>
 
           {userRoles.map((userRole) => (
@@ -207,7 +211,7 @@ function UserRole() {
           ))}
           <br />
           <div>
-            <button className="btn btn-primary">Save</button>
+            <button className="btn btn-primary btn-sm">Save</button>
             <Link to="/RegisterTable" className="btn btn-link">
               Cancel
             </Link>

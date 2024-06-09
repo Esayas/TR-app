@@ -4,6 +4,10 @@ import { userAccountService } from "../../services/useraccountService";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authenticationActions } from "../../store/authentication-slice";
+// import { employeeService } from "../../services/employeeService";
+// import { transportrequestActions } from "../../store/transportrequest-slice";
+import { employeeService } from "../../services/employeeService";
+import { transportrequestActions } from "../../store/transportrequest-slice";
 
 function Login() {
   const userRef = useRef();
@@ -44,8 +48,16 @@ function Login() {
         };
         // userAccountService.login(user, pwd).then((user) => {
         userAccountService.login(UserAccount).then((user) => {
-          console.log(user);
+          // console.log(user);
           dispatch(authenticationActions.login(user));
+          // //set employee profile
+
+          // employeeService.getbyUserName(user).then((result) => {
+          //   console.log("result");
+          //   console.log(result);
+          //   dispatch(transportrequestActions.setEmployeeId_Section(result));
+          // });
+
           // console.log(user);
           //Data saved succesfully
           // dispatch(
@@ -91,7 +103,7 @@ function Login() {
 
   return (
     <div className="App-section">
-      <section>
+      <section className="loginsection">
         <h4>Welcome to {appName}</h4>
         <h4>Sign In</h4>
         <form onSubmit={handleSubmit}>

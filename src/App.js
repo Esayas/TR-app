@@ -24,6 +24,8 @@ import UserRole from "./components/Auth/UserAccount/UserRole";
 import Unauthorized from "./components/Unauthorized";
 import { PrivateRoute } from "./components/PrivateRoute";
 import RequireAuth from "./components/RequireAuth";
+import AddTransportRequest from "./components/TransportRequest/AddTransportRequest";
+import TransportRequestTable from "./components/TransportRequest/TransportRequestTable";
 
 // import { IdleTimer } from "react-idle-timer";
 
@@ -93,6 +95,16 @@ function App() {
               <Route path="/Register" element={<Register />} />
               <Route path="/useraccount/edit/:id" element={<RegisterEdit />} />
               <Route path="/useraccount/user-role/:id" element={<UserRole />} />
+
+              <Route
+                path="/addtransportrequest"
+                element={<AddTransportRequest />}
+              />
+              <Route
+                path="/transportrequest"
+                element={<TransportRequestTable />}
+              />
+
               <Route path="/unauthorized" element={<Unauthorized />} />
 
               <Route path="*" element={<Navigate to="/" />} />

@@ -24,7 +24,7 @@ const employeeSlice = createSlice({
     },
     createnew(state, action) {
       state.newemployee = action.payload;
-      console.log(state.newemployee);
+      // console.log(state.newemployee);
     },
     editdata(state, action) {},
     removedata(state, action) {},

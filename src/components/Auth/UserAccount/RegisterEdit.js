@@ -1,6 +1,6 @@
 import React from "react";
-import { useRef, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   faCheck,
   faTimes,
@@ -14,12 +14,8 @@ import { uiActions } from "../../../store/ui-slice";
 const Email_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
 function RegisterEdit() {
-  // const userRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const fnameRef = useRef();
-  // const errRef = useRef();
-  // const [isCreating, setIsCreating] = useState(true);
 
   const [fname, setFname] = useState("");
   const [submitted, setSubmitted] = useState(false);

@@ -9,7 +9,7 @@ const useraccountSlice = createSlice({
   reducers: {
     getall(state, action) {
       state.useraccounts = action.payload;
-      console.log("33");
+      // console.log("33");
       console.log(action.payload);
     },
     createnew(state, action) {},

@@ -47,7 +47,7 @@ function AddEmployee() {
   // const [dutystations, setDutystations] = useState([]);
   // const [sections, setSections] = useState([]);
   // const [employmentTypes, setEmploymentTypes] = useState([]);
-  const [isCreating, setIsCreating] = useState(true);
+  const [isCreating, setIsCreating] = useState(false);
 
   const employmentTypelist = useSelector(
     (state) => state.employee.employmentTypes
@@ -73,6 +73,7 @@ function AddEmployee() {
   const { id } = useParams();
 
   useEffect(() => {
+    setIsCreating(true);
     //gets employment type list
     employmentTypeService.getAll().then((result) => {
       dispatch(employeeActions.getallemploymenttypes(result));
@@ -115,7 +116,6 @@ function AddEmployee() {
   };
 
   const submithandler = (values) => {
-    // console.log(Employeedata);
     if (isCreating) {
       //sending data
       dispatch(
@@ -129,7 +129,7 @@ function AddEmployee() {
       employeeService
         .create(values)
         .then((data) => {
-          console.log(values);
+          // console.log(values);
           //Data saved succesfully
           dispatch(
             uiActions.showNotification({
@@ -191,14 +191,18 @@ function AddEmployee() {
   };
 
   return (
-    <div>
-      <h4> {isCreating ? "Add New Employee" : "Update Employee"}</h4>
-      <header className="App-header">
+    <div className="App-section">
+      <section>
+        <h4 style={{ marginBottom: 0 }}>
+          {isCreating ? "Add New Employee" : "Update Employee"}
+        </h4>
+        {/* <header className="App-header"> */}
         <Form
           {...formItemLayout}
           autoComplete="off"
           onFinish={submithandler}
           ref={formRef}
+
           // style={{ textAlign:  }}
           // labelCol={{ span: 4 }}
           // wrapperCol={{ span: 18 }}
@@ -219,7 +223,7 @@ function AddEmployee() {
               { min: 3 },
             ]}
             hasFeedback
-            style={{ marginBottom: 12 }}
+            style={{ marginBottom: 2 }}
           >
             <Input placeholder="Type the name" />
           </Form.Item>
@@ -236,14 +240,14 @@ function AddEmployee() {
               { min: 3 },
             ]}
             hasFeedback
-            style={{ marginBottom: 12 }}
+            style={{ marginBottom: 2 }}
           >
             <Input placeholder="Type the title" />
           </Form.Item>
           <Form.Item
             name="dutyStationId"
             label="Duty Station"
-            style={{ marginBottom: 12 }}
+            style={{ marginBottom: 2 }}
             rules={[
               {
                 required: true,
@@ -265,11 +269,11 @@ function AddEmployee() {
           <Form.Item
             name="sectionId"
             label="Section"
-            style={{ marginBottom: 12 }}
+            style={{ marginBottom: 2 }}
             rules={[
               {
                 required: true,
-                message: "Please select duty station",
+                message: "Please select section",
               },
             ]}
           >
@@ -281,10 +285,10 @@ function AddEmployee() {
           </Form.Item>
           <Form.Item
             name="isActive"
-            wrapperCol={{ span: 1 }}
+            wrapperCol={{ span: 2 }}
             valuePropName="checked"
             label="Is Active?"
-            style={{ marginBottom: 12 }}
+            style={{ marginBottom: 2 }}
           >
             <Checkbox />
           </Form.Item>
@@ -300,7 +304,7 @@ function AddEmployee() {
               { type: "email", message: "Please enter a valid email" },
             ]}
             hasFeedback
-            style={{ marginBottom: 12 }}
+            style={{ marginBottom: 2 }}
           >
             <Input placeholder="Type the email" />
           </Form.Item>
@@ -316,7 +320,7 @@ function AddEmployee() {
               { type: "tel", message: "Please enter a valid phone" },
             ]}
             hasFeedback
-            style={{ marginBottom: 12 }}
+            style={{ marginBottom: 2 }}
           >
             <Input
               type="tel"
@@ -330,7 +334,7 @@ function AddEmployee() {
             wrapperCol={{ span: 1 }}
             valuePropName="checked"
             label="Is Section Responsible?"
-            style={{ marginBottom: 12 }}
+            style={{ marginBottom: 2 }}
           >
             <Checkbox />
           </Form.Item>
@@ -346,14 +350,14 @@ function AddEmployee() {
               { min: 3 },
             ]}
             hasFeedback
-            style={{ marginBottom: 12 }}
+            style={{ marginBottom: 2 }}
           >
             <Input placeholder="Type the user name" />
           </Form.Item>
           <Form.Item
             name="employmentTypeId"
             label="Employment Type"
-            style={{ marginBottom: 12 }}
+            style={{ marginBottom: 2 }}
           >
             <Select placeholder="Select the Employment Type">
               {employmentTypelist.map((emptype) => (
@@ -372,7 +376,7 @@ function AddEmployee() {
             wrapperCol={{ span: 1 }}
             valuePropName="checked"
             label="Waiver Needed?"
-            style={{ marginBottom: 12 }}
+            style={{ marginBottom: 2 }}
           >
             <Checkbox />
           </Form.Item>
@@ -380,7 +384,7 @@ function AddEmployee() {
           <Form.Item
             name="employeereportto"
             label="Employee Report to"
-            style={{ marginBottom: 12 }}
+            style={{ marginBottom: 2 }}
             // rules={[
             //   {
             //     required: true,
@@ -407,8 +411,8 @@ function AddEmployee() {
             </Button>
           </Form.Item>
         </Form>
-      </header>
-      //{" "}
+        {/* </header> */}
+      </section>
     </div>
   );
 }

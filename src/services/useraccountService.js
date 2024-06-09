@@ -109,7 +109,7 @@ function edit(UserAccount) {
 }
 
 function editprofile(UserAccount, id) {
-  console.log("3TG");
+  // console.log("3TG");
   const requestOptions = {
     method: "PUT",
     headers: {
@@ -137,8 +137,8 @@ function deleteUserAccount(id) {
 }
 
 function disable(UserAccount) {
-  console.log(UserAccount);
-  console.log(JSON.stringify(UserAccount));
+  // console.log(UserAccount);
+  // console.log(JSON.stringify(UserAccount));
   const requestOptions = {
     method: "POST",
     headers: {
